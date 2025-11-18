@@ -1,0 +1,43 @@
+#include <fstream>
+#include <deque>
+using namespace std;
+ifstream fin("lowmem1.in");
+ofstream fout("lowmem1.out");
+deque<int> q;
+int n,x,s=0,nr=0,i,ok,smax,v[11005];
+int main(){
+    fin>>n;
+    while(fin>>x){
+        ok=1;
+        while(nr<n){
+            q.push_back(x);
+            s=s+x;
+            nr++;
+            ok=0;
+        }
+        if(nr==n){
+            smax=s;
+             for(i=0;i<n;i++){
+                    v[i]=q[i];
+                }
+                nr++;
+                ok=0;
+        }
+        if(ok==1){
+            s=s-q.front();
+            q.pop_front();
+            s=s+x;
+            q.push_back(x);
+            if(s>smax){
+                smax=s;
+                for(i=0;i<n;i++){
+                    v[i]=q[i];
+                }
+            }
+        }
+    }
+    fout<<smax<<"\n";
+    for(i=0;i<n;i++){
+        fout<<v[i]<<" ";
+    }
+}
